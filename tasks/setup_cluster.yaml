@@ -49,3 +49,5 @@
   shell:
     cmd: microk8s config > config 
     chdir: '/home/{{ ansible_user }}/.kube'
+  become: true
+  
