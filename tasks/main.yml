@@ -1,0 +1,8 @@
+---
+# tasks file for Kubernetes
+- name: Setup cluster
+  import_tasks: setup_cluster.yaml
+- name: Namespace
+  import_tasks: setup_namespace.yaml
+- name: Storage
+  import_tasks: setup_storage.yaml
