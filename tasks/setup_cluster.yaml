@@ -1,0 +1,46 @@
+---
+# tasks file for microk8s
+- name: Install MicroK8s
+  community.general.snap:
+    name: microk8s
+    classic: yes
+- name: Wait until MicroK8s is ready
+  shell:
+    cmd: microk8s status --wait-ready
+  register: status 
+- name: Debug Status 
+  debug:
+    msg: '{{ status.stdout }}'
+- name: Enable Plugins 
+  shell:
+    cmd: microk8s enable dashboard dns registry ingress 
+- name: Install Packages
+  apt:
+    pkg:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    state: present
+    update_cache: true
+  become: yes
+- name: Get Google Cloud Public Key 
+  shell: 
+    cmd: 'curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg'
+  become: True
+- name: Add K8S repo 
+  shell:
+    cmd: 'echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list'
+- name: Install kubectl
+  apt:
+    pkg:
+    - kubectl
+    state: present
+    update_cache: true
+- name: Ensure .kube directory exists
+  file:
+    path: '/home/{{ ansible_user }}/.kube'
+    state: directory
+- name: Create kubeconfig 
+  shell:
+    cmd: microk8s config > config 
+    chdir: '/home/{{ ansible_user }}/.kube'
