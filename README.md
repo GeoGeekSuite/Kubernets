@@ -30,7 +30,7 @@ Example Playbook
     manifest_folder: ~/geogeek_manifests
     gisnamespace: gis
     storage_base: ~/geogeek_storage
-    storage
+    storage:
     - name: test
       type: local
       path: '{{ storage_base }}/test'
