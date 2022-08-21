@@ -1,4 +1,14 @@
 ---
+- name: make sure storage base path exists
+  file:
+    state: directory
+    path: '{{ storage_base }}'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+    mode: u=rw,g=rw,o=rw
+    #TODO: check rights
+  when: '"local" in item.type'
+  become: true
 - name: Loop over storage 
   debug:
     msg: '{{ item.name }} path: {{ item.path }}'
@@ -13,6 +23,7 @@
     #TODO: check rights
   with_items: '{{ storage }}'
   when: '"local" in item.type'
+  become: true
 - name: Render Download Storage Definition
   template:
     src:  local_storage.j2.yaml
