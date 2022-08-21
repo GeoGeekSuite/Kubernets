@@ -7,7 +7,6 @@
     group: '{{ ansible_user }}'
     mode: u=rw,g=rw,o=rw
     #TODO: check rights
-  when: '"local" in item.type'
   become: true
 - name: Loop over storage 
   debug:
