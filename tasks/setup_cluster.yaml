@@ -50,4 +50,12 @@
     cmd: microk8s config > config 
     chdir: '/home/{{ ansible_user }}/.kube'
   become: true
-  
+- name: Add user to microk8s
+  shell:
+    cmd: usermod -a -G microk8s marco
+  become: true
+- name: Create kubeconfig 
+  shell:
+    cmd: microk8s config > config 
+    chdir: '/home/{{ ansible_user }}/.kube'
+  become: true
