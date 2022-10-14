@@ -15,7 +15,7 @@
     msg: '{{ status.stdout }}'
 - name: Enable Plugins 
   shell:
-    cmd: microk8s enable dashboard dns ingress
+    cmd: 'microk8s enable {{ microK8s_addons }}'
   become: true
 - name: Install Packages
   apt:
