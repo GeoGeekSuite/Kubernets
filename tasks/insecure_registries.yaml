@@ -1,0 +1,29 @@
+---
+- name: Make sure /etc/docker exists
+  file:
+    path: /etc/docker
+    state: directory
+  become: true
+- name: Add local registry to insecure Registries
+  template:
+    src: daemon.j2.json
+    dest: /etc/docker/daemon.json
+  become: true
+- name: Create dir for toml
+  file:
+    path: '/var/snap/microk8s/current/args/certs.d/{{ local_registry.url }}:{{ local_registry.port }}'
+    state: directory
+  become: true
+- name: Create hosts.toml
+  template:
+    src: hosts.j2.toml
+    dest: '/var/snap/microk8s/current/args/certs.d/{{ local_registry.url }}:{{ local_registry.port }}/hosts.toml'
+  become: true
+- name: Stop microk8s
+  shell:
+    cmd: microk8s stop
+  become: true
+- name: Start microk8s
+  shell:
+    cmd: microk8s start
+  become: true

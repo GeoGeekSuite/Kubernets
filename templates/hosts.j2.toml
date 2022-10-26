@@ -1,0 +1,5 @@
+# /var/snap/microk8s/current/args/certs.d/{{ local_registry.url }}:{{ local_registry.port }}/hosts.toml
+server = "{{ local_registry.protocol }}://{{ local_registry.url }}:{{ local_registry.port }}"
+
+[host."{{ local_registry.protocol }}://{{ local_registry.url }}:{{ local_registry.port }}"]
+capabilities = ["pull", "resolve"]
