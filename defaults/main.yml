@@ -1,2 +1,4 @@
 ---
 # defaults file for Kubernetes
+microK8s_addons: 'dashboard dns ingress registry'
+gisnamespace: gis
