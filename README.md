@@ -11,6 +11,7 @@ Use this role for Ubuntu 22.04 LTS
 Role Variables
 --------------
 
+````
 microK8s_addons: String that lists all MicroK8s addons that should be installed
 ansible_user: Username of a user of the host system
 manifest_folder: Folder in which manifests will be stored
@@ -19,6 +20,7 @@ local_registry:
   url: Resolvable name of the host
   port: Port that is used for the MicroK8s registry (default is 32000)
 gisnamespace: Kubernetes namespace for GIS related pods
+````
 
 
 Dependencies
