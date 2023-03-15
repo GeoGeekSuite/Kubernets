@@ -26,8 +26,7 @@ Dependencies
 
 Example Playbook
 ----------------
-
-```
+´´´
 - hosts: microk8s.test
   vars:
     microK8s_addons: 'dashboard dns ingress registry'
@@ -41,7 +40,7 @@ Example Playbook
   roles:
   - { role: kube,
         tags: kube }
- ```
+´´´
 
 
 License
